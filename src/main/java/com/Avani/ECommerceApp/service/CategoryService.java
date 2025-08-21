@@ -13,4 +13,6 @@ public interface CategoryService {
      getAllCategories();
 
     String createCategory(Category category);
+
+    String deleteCategory(int categoryId);
 }

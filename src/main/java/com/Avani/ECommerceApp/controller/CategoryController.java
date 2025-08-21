@@ -2,10 +2,7 @@ package com.Avani.ECommerceApp.controller;
 
 import com.Avani.ECommerceApp.model.Category;
 import com.Avani.ECommerceApp.service.CategoryService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,5 +28,10 @@ return categoryService.getAllCategories();
     @PostMapping("/api/admin/add_category")
     public String addCategory(@RequestBody Category category) {
     return categoryService.createCategory(category);
+    }
+
+@DeleteMapping("/api/admin/categories/delete/{categoryId}")
+    public String deleteCategory(@PathVariable int categoryId) {
+        return categoryService.deleteCategory(categoryId);
     }
 }
