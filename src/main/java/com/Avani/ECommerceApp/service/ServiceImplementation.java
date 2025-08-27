@@ -2,9 +2,11 @@ package com.Avani.ECommerceApp.service;
 
 import com.Avani.ECommerceApp.controller.CategoryController;
 import com.Avani.ECommerceApp.model.Category;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,11 +31,11 @@ public class ServiceImplementation implements CategoryService{
     }
 
     public String deleteCategory(@RequestBody int id) {
-        Category category = categoryList.stream().filter(c-> c.getCategoryId() == id).findFirst().orElse(null);
-        if(category==null){
-            return "Category not found";
-        }
+        Category category = categoryList.stream().filter(c-> c.getCategoryId() == id).findFirst().orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND, " Category not found"));
         categoryList.remove(category);
         return "Deleted";
+    }
+    public String updateCategory(@RequestBody String categoryName, String updatedName){
+
     }
 }
