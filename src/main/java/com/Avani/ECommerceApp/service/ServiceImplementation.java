@@ -24,10 +24,9 @@ public class ServiceImplementation implements CategoryService{
     }
 
     @Override
-    public String createCategory(Category category) {
+    public void createCategory(Category category) {
         category.setCategoryId(nextId++);
         categoryList.add(category);
-        return "Added";
     }
 
     public String deleteCategory(@RequestBody int id) {
@@ -35,7 +34,8 @@ public class ServiceImplementation implements CategoryService{
         categoryList.remove(category);
         return "Deleted";
     }
-    public String updateCategory(@RequestBody String categoryName, String updatedName){
-
+    public void updateCategory(@RequestBody String categoryName, String updatedName){
+        Category category = categoryList.stream().filter(c->c.getCategoryName().equals(categoryName)).findFirst().orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND, " Category not found"));
+        category.setCategoryName(updatedName);
     }
 }

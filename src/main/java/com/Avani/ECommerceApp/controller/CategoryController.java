@@ -55,4 +55,19 @@ private final CategoryService categoryService;
             return new ResponseEntity<>(rse.getReason(), rse.getStatusCode());
         }
     }
+
+
+    @PutMapping("/api/admin/update/{categoryName}_{updatedName")
+public ResponseEntity<String> updateCategory(@PathVariable String categoryName, @PathVariable String updatedName) {
+    try {
+            categoryService.updateCategory(categoryName, updatedName);  
+            return new ResponseEntity<>("Updated Successfully", HttpStatus.OK);
+    }
+    catch (ResponseStatusException rse){
+    return new ResponseEntity<>(rse.getReason(), rse.getStatusCode());
+    }
+    }
 }
+
+
+
