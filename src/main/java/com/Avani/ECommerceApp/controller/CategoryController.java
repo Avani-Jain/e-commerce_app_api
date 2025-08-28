@@ -20,6 +20,9 @@ private final CategoryService categoryService;
 //        this.categoryService = categoryService;
 //    }
 
+
+//    request mapping is used when we are using urls like /api/categories... basically the url is constant for first part and according to mapping we are changing the second part. therefore. we can use requestmapping to tell that this first part has to be added for all mappings and the second part we will give. For this purpose, RequestMapping is used at class level
+//    for endpoint defining. --> instead of mentioning getmapping postmapping etc. we can directly use requestmapping(value="url", method= RequestMethod.GET)
     public CategoryController(CategoryService categoryService) {
     this.categoryService = categoryService;
 }
@@ -57,10 +60,10 @@ private final CategoryService categoryService;
     }
 
 
-    @PutMapping("/api/admin/update/{categoryName}_{updatedName")
-public ResponseEntity<String> updateCategory(@PathVariable String categoryName, @PathVariable String updatedName) {
+    @PutMapping("/api/admin/update/{categoryId}")
+public ResponseEntity<String> updateCategory(@RequestBody Category category, @PathVariable int categoryId) {
     try {
-            categoryService.updateCategory(categoryName, updatedName);  
+            Category updatedCategory = categoryService.updateCategory(category, categoryId);
             return new ResponseEntity<>("Updated Successfully", HttpStatus.OK);
     }
     catch (ResponseStatusException rse){
